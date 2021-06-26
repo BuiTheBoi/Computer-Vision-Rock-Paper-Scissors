@@ -17,3 +17,9 @@ Email: jbui3493@gmail.com
 
 Institution: California State University, Fullerton
 
+## Required Libaries
+```
+pip install opencv-contrib-python
+
+pip install mediapipe
+```

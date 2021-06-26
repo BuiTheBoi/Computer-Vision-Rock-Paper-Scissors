@@ -55,4 +55,47 @@ def usersMove(fingers):
     else:
         return "Unknown"
 
-# def computersMove(fingers):
+
+def computersMove():
+    num = random.randint(0, 2)
+    moves = {
+        0: "Rock",
+        1: "Paper",
+        2: "Scissors"
+    }
+
+    return moves[num]
+
+# 4 possibilities: You won, computer won, draw, or error
+
+
+def determineWinner(user, computer):
+    # You chose 'Rock'
+    if (user == "Rock"):
+        if (computer == "Paper"):
+            return "The Computer"
+        elif (computer == "Scissors"):
+            return "You"
+        elif (computer == "Rock"):
+            return "Draw"
+
+    # You chose 'Paper'
+    elif (user == "Paper"):
+        if (computer == "Scissors"):
+            return "The Computer"
+        elif (computer == "Rock"):
+            return "You"
+        elif (computer == "Paper"):
+            return "Draw"
+
+    # You chose 'Scissors'
+    elif (user == "Scissors"):
+        if (computer == "Rock"):
+            return "The Computer"
+        elif (computer == "Paper"):
+            return "You"
+        elif (computer == "Scissors"):
+            return "Draw"
+
+    elif (user == "Unknown"):
+        return "Error"
