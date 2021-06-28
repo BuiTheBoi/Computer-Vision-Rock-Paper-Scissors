@@ -6,26 +6,30 @@ import time
 
 
 def main():
+    userPoints = 0
+    computerPoints = 0
+
     capture = cv.VideoCapture(0)
     detector = HandTrackingModule.hand_detector()
-    frames = 0
+    tics = 0
     count = 5
 
     # When video is playing
     while True:
-        flag, img = capture.read()
+        flag, img = capture.read()  # img height: 480, width: 640
         img = detector.findHands(img)
+        img = GameFunctions.displayScoreboard(img, userPoints, computerPoints)
 
         landmarks = detector.findPositions(img, draw=False)
 
-        print(f"Frame: {frames}")
+        print(f"Frame: {tics}")
 
         if (len(landmarks) != 0):
 
             # Counting down to detect hand
             img = cv.putText(img, str(count), (30, 30),
-                             cv.FONT_HERSHEY_PLAIN, 1.0, (0, 255, 0), 4)
-            if (frames % 25 == 0 and count != 0):
+                             cv.FONT_HERSHEY_PLAIN, 1.0, (0, 255, 0), 2)
+            if (tics % 25 == 0 and count != 0):
                 count -= 1
 
             # leftOrRight = GameFunctions.detectLeftOrRight(landmarks)
@@ -39,29 +43,42 @@ def main():
                 fingersUp = GameFunctions.trackFingers(landmarks)
                 userChoice = GameFunctions.usersMove(fingersUp)
                 cv.putText(
-                    img, f"You chose: {userChoice}", (20, 55), cv.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
+                    img, f"You chose: {userChoice}", (20, 55), cv.FONT_HERSHEY_PLAIN, 1.5, (128, 0, 128), 2)
 
                 # Computer's turn for rock/paper/scissors
                 computerChoice = GameFunctions.computersMove()
                 cv.putText(
-                    img, f"The computer chose: {computerChoice}", (20, 70), cv.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
+                    img, f"The computer chose: {computerChoice}", (20, 70), cv.FONT_HERSHEY_PLAIN, 1.5, (128, 0, 128), 2)
 
                 gameOutcome = GameFunctions.determineWinner(
                     userChoice, computerChoice)
-                cv.putText(
-                    img, gameOutcome, (221, img.shape[0] // 2), cv.FONT_HERSHEY_PLAIN, 3.0, (0, 255, 0), 3)
+                # Printing game outcome on the screen
+                if (gameOutcome == "Draw"):
+                    cv.putText(
+                        img, "Draw!", ((img.shape[1] // 2) - 30, 400), cv.FONT_HERSHEY_PLAIN, 3.0, (180, 105, 255), 3)
+                elif (gameOutcome == "Error"):
+                    cv.putText(img, "Error detecting hand. Try again", (100,
+                               400), cv.FONT_HERSHEY_PLAIN, 3.0, (0, 0, 255), 3)
+                else:
+                    if (gameOutcome == "You"):
+                        userPoints += 1
+                    else:
+                        computerPoints += 1
+                    cv.putText(
+                        img, f"{gameOutcome} won!", (100, 400), cv.FONT_HERSHEY_PLAIN, 3.0, (255, 255, 0), 3)
 
-                # Showing who the winner is for quick 3 seconds
+                # Showing who the winner is until user presses a key to move on
                 cv.imshow("Rock Paper Scissors", img)
                 cv.waitKey(0)
+                count = 4
 
             cv.imshow("Rock Paper Scissors", img)
-            frames += 1
+            tics += 1
 
         else:
             count = 4
             cv.imshow("Rock Paper Scissors", img)
-            frames += 1
+            tics += 1
 
         # Press escape to exit program
         if (cv.waitKey(30) & 0xff == 27):

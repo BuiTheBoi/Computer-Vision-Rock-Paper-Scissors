@@ -99,3 +99,11 @@ def determineWinner(user, computer):
 
     elif (user == "Unknown"):
         return "Error"
+
+
+def displayScoreboard(img, user, computer):
+    img = cv.putText(
+        img, f"Your Points: {user}", (340, 440), cv.FONT_HERSHEY_PLAIN, 1.7, (0, 255, 0), 2)
+    img = cv.putText(
+        img, f"Computers Points: {computer}", (340, 465), cv.FONT_HERSHEY_PLAIN, 1.7, (0, 255, 0), 2)
+    return img
