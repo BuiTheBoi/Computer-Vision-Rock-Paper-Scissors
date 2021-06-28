@@ -2,12 +2,16 @@ import cv2 as cv
 import mediapipe as mp
 import HandTrackingModule
 import GameFunctions
-import time
+
+
+# Global variables
+userPoints = 0
+computerPoints = 0
 
 
 def main():
-    userPoints = 0
-    computerPoints = 0
+    global userPoints
+    global computerPoints
 
     capture = cv.VideoCapture(0)
     detector = HandTrackingModule.hand_detector()
@@ -18,18 +22,18 @@ def main():
     while True:
         flag, img = capture.read()  # img height: 480, width: 640
         img = detector.findHands(img)
-        img = GameFunctions.displayScoreboard(img, userPoints, computerPoints)
 
         landmarks = detector.findPositions(img, draw=False)
+        # img = GameFunctions.displayScoreboard(img, userPoints, computerPoints)
 
-        print(f"Frame: {tics}")
+        # print(f"Frame: {tics}")
 
         if (len(landmarks) != 0):
 
             # Counting down to detect hand
             img = cv.putText(img, str(count), (30, 30),
                              cv.FONT_HERSHEY_PLAIN, 1.0, (0, 255, 0), 2)
-            if (tics % 25 == 0 and count != 0):
+            if (tics % 15 == 0 and count != 0):
                 count -= 1
 
             # leftOrRight = GameFunctions.detectLeftOrRight(landmarks)
@@ -64,21 +68,41 @@ def main():
                         userPoints += 1
                     else:
                         computerPoints += 1
-                    cv.putText(
-                        img, f"{gameOutcome} won!", (100, 400), cv.FONT_HERSHEY_PLAIN, 3.0, (255, 255, 0), 3)
 
-                # Showing who the winner is until user presses a key to move on
+                    if (userPoints == 2):   # Final winner is the User
+                        cv.putText(
+                            img, "CONGRATS! YOU WON!", (60, 400), cv.FONT_HERSHEY_PLAIN, 2.0, (255, 255, 0), 3)
+                        GameFunctions.reset()
+                        img = GameFunctions.displayScoreboard(
+                            img, userPoints, computerPoints)
+                    elif (computerPoints == 2):  # Final winner is the Computer
+                        cv.putText(
+                            img, "Opponent won.", (60, 390), cv.FONT_HERSHEY_PLAIN, 2.0, (255, 255, 0), 3)
+                        cv.putText(
+                            img, "Better luck next time!", (60, 415), cv.FONT_HERSHEY_PLAIN, 2.0, (255, 255, 0), 3)
+                        GameFunctions.reset()
+                        img = GameFunctions.displayScoreboard(
+                            img, userPoints, computerPoints)
+                    else:
+                        cv.putText(
+                            img, f"{gameOutcome} got a point!", (60, 400), cv.FONT_HERSHEY_PLAIN, 2.0, (255, 255, 0), 3)
+
+                    print(f"You: {userPoints}")
+                    print(f"Computer: {computerPoints}")
+
+                # Showings results after each round until user presses a key to move on
+                img = GameFunctions.displayScoreboard(
+                    img, userPoints, computerPoints)
                 cv.imshow("Rock Paper Scissors", img)
                 cv.waitKey(0)
                 count = 4
 
-            cv.imshow("Rock Paper Scissors", img)
-            tics += 1
-
         else:
             count = 4
-            cv.imshow("Rock Paper Scissors", img)
-            tics += 1
+
+        img = GameFunctions.displayScoreboard(img, userPoints, computerPoints)
+        cv.imshow("Rock Paper Scissors", img)
+        tics += 1
 
         # Press escape to exit program
         if (cv.waitKey(30) & 0xff == 27):

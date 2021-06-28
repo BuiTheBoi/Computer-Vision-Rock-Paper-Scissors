@@ -1,6 +1,7 @@
 import cv2 as cv
 import mediapipe as mp
 import random
+import main
 
 
 def detectLeftOrRight(landmarks):
@@ -107,3 +108,13 @@ def displayScoreboard(img, user, computer):
     img = cv.putText(
         img, f"Computers Points: {computer}", (340, 465), cv.FONT_HERSHEY_PLAIN, 1.7, (0, 255, 0), 2)
     return img
+
+# Resetting all stats after a new game
+
+
+def reset():
+    global userPoints
+    global computerPoints
+
+    main.userPoints = 0
+    main.computerPoints = 0
