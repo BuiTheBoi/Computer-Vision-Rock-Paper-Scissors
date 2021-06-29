@@ -28,12 +28,6 @@ def main():
             if (tics % 10 == 0 and count != 0):
                 count -= 1
 
-            # leftOrRight = GameFunctions.detectLeftOrRight(landmarks)
-            # if (leftOrRight == 'l'):
-            #     print("Left Hand")
-            # elif (leftOrRight == 'r'):
-            #     print("Right Hand")
-
             if (count == 0):
                 # Detecting user's choice of rock/paper/scissors
                 fingersUp = GameFunctions.trackFingers(landmarks)
@@ -54,7 +48,7 @@ def main():
                     cv.putText(
                         img, "Draw!", ((img.shape[1] // 2) - 30, 400), cv.FONT_HERSHEY_PLAIN, 3.0, (180, 105, 255), 3)
                 elif (gameOutcome == "Error"):
-                    cv.putText(img, "Error detecting hand. Try again", (100,
+                    cv.putText(img, "Error. Try again.", (80,
                                400), cv.FONT_HERSHEY_PLAIN, 3.0, (0, 0, 255), 3)
                 else:
                     if (gameOutcome == "You"):
