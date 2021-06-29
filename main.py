@@ -1,3 +1,9 @@
+# Copyright (c) 2021 BuiTheBoi
+
+# Use of this source code is governed by an MIT-style
+# license that can be found in the LICENSE file or at
+# https://opensource.org/licenses/MIT.
+
 import cv2 as cv
 import mediapipe as mp
 import HandTrackingModule
@@ -73,6 +79,8 @@ def main():
                                 img, f"{gameOutcome} got a point!", (60, 400), cv.FONT_HERSHEY_PLAIN, 2.0, (255, 255, 0), 3)
 
                 # Showings results after each round until user presses a key to move on
+                cv.putText(
+                    img, "> Press any button to continue", (60, 465), cv.FONT_HERSHEY_PLAIN, 1.0, (255, 0, 0), 1)
                 img = GameFunctions.displayScoreboard(
                     img, GameFunctions.userPoints, GameFunctions.computerPoints)
                 cv.imshow("Rock Paper Scissors", img)

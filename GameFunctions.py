@@ -1,3 +1,9 @@
+# Copyright (c) 2021 BuiTheBoi
+
+# Use of this source code is governed by an MIT-style
+# license that can be found in the LICENSE file or at
+# https://opensource.org/licenses/MIT.
+
 import cv2 as cv
 import mediapipe as mp
 import random
