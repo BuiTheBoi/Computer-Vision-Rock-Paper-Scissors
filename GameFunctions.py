@@ -112,9 +112,14 @@ def displayScoreboard(img, user, computer):
 # Resetting all stats after a new game
 
 
+# Global variables
+userPoints = 0
+computerPoints = 0
+
+
 def reset():
     global userPoints
     global computerPoints
 
-    main.userPoints = 0
-    main.computerPoints = 0
+    userPoints = 0
+    computerPoints = 0
