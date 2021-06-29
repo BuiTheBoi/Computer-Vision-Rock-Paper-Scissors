@@ -29,7 +29,8 @@ def trackFingers(landmarks):
     fingers = []
 
     # Thumb
-    if (landmarks[tipIDs[0]][1] > landmarks[tipIDs[0]-1][1]):   # x axis of thumb tip
+    # if (landmarks[tipIDs[0]][1] > landmarks[tipIDs[0]-1][1]):   # x axis of thumb tip
+    if (landmarks[tipIDs[0]][2] < landmarks[5][2] + 10):
         fingers.append(1)   # Finger opened
     else:
         fingers.append(0)   # Finger closed
@@ -109,15 +110,13 @@ def displayScoreboard(img, user, computer):
         img, f"Computers Points: {computer}", (340, 465), cv.FONT_HERSHEY_PLAIN, 1.7, (0, 255, 0), 2)
     return img
 
-# Resetting all stats after a new game
-
 
 # Global variables
 userPoints = 0
 computerPoints = 0
 
 
-def reset():
+def reset():    # Resetting all stats after a new game
     global userPoints
     global computerPoints
 

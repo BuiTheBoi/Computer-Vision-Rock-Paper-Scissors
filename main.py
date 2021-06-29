@@ -20,8 +20,6 @@ def main():
 
         landmarks = detector.findPositions(img, draw=False)
 
-        #print(f"Frame: {tics}")
-
         if (len(landmarks) != 0):
 
             # Counting down to detect hand
@@ -39,6 +37,7 @@ def main():
             if (count == 0):
                 # Detecting user's choice of rock/paper/scissors
                 fingersUp = GameFunctions.trackFingers(landmarks)
+                print(fingersUp)
                 userChoice = GameFunctions.usersMove(fingersUp)
                 cv.putText(
                     img, f"You chose: {userChoice}", (20, 55), cv.FONT_HERSHEY_PLAIN, 1.5, (128, 0, 128), 2)
@@ -78,9 +77,6 @@ def main():
                         else:
                             cv.putText(
                                 img, f"{gameOutcome} got a point!", (60, 400), cv.FONT_HERSHEY_PLAIN, 2.0, (255, 255, 0), 3)
-
-                    print(f"You: {GameFunctions.userPoints}")
-                    print(f"Computer: {GameFunctions.computerPoints}")
 
                 # Showings results after each round until user presses a key to move on
                 img = GameFunctions.displayScoreboard(
