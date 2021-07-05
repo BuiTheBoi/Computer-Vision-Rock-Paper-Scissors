@@ -1,14 +1,22 @@
+######################################################################################
+# File Description: HandTrackingModule.py contains a class that is used to detect
+#                   player's hands using mediapipe and trace their fingers and
+#                   joints using OpenCV (See functions below for more details).
+
+# Reference: https://www.youtube.com/watch?v=01sAkU_NvOY
+
+######################################################################################
+
 # Copyright (c) 2021 BuiTheBoi
 
 # Use of this source code is governed by an MIT-style
 # license that can be found in the LICENSE file or at
 # https://opensource.org/licenses/MIT.
 
-# Reference: https://www.youtube.com/watch?v=01sAkU_NvOY
+######################################################################################
 
 import cv2 as cv
 import mediapipe as mp
-import time
 
 
 class hand_detector():

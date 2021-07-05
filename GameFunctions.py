@@ -1,8 +1,15 @@
+######################################################################################
+# File Description: GameFunctions.py is responsible for holding any functions 
+#                   made to be called in main.py. It is meant to make the 
+#                   program more modularized, therefore easier to look at.
+######################################################################################
+
 # Copyright (c) 2021 BuiTheBoi
 
 # Use of this source code is governed by an MIT-style
 # license that can be found in the LICENSE file or at
 # https://opensource.org/licenses/MIT.
+######################################################################################
 
 import cv2 as cv
 import mediapipe as mp
