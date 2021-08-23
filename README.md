@@ -9,7 +9,7 @@ who is the winner.
 
 Best of luck! :tada::snake:
 
-Project Start Date: 24 August, 2021
+Project Start Date: 24 July, 2021
 ## Author
 Name: Justin Bui
 
